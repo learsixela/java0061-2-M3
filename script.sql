@@ -126,3 +126,25 @@ INSERT INTO `java0062`.`contactos` (`nombre`, `apellido`, `email`, `empresa_id`,
 INSERT INTO `java0062`.`contactos` (`nombre`, `apellido`, `email`, `empresa_id`, `cargo_id`, `telefono`, `fecha_alta`) VALUES ('Andrés','Mendoza','andrés.mendoza@ecosolar.example',5,9,'+34 678139880','2025-07-28');
 INSERT INTO `java0062`.`contactos` (`nombre`, `apellido`, `email`, `empresa_id`, `cargo_id`, `telefono`, `fecha_alta`) VALUES ('Mateo','Navarro','mateo.navarro@ecosolar.example',5,10,'+34 636697396','2025-08-09');
 INSERT INTO `java0062`.`contactos` (`nombre`, `apellido`, `email`, `empresa_id`, `cargo_id`, `telefono`, `fecha_alta`) VALUES ('Jorge','Herrera','jorge.herrera@caféandino.example',3,5,'+34 610076758','2025-12-01');
+
+
+CREATE TABLE transacciones(
+	id int auto_increment primary key,
+    remitente_usuario_id int   not null,
+    destinatario_usuario_id int not null,
+    importe int DEFAULT 0,
+    fecha_transaccion datetime not null DEFAULT CURRENT_TIMESTAMP,
+    -- restricciones
+    constraint fk_remitente_usuario_id 
+    foreign key (remitente_usuario_id) references usuario(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    
+	constraint fk_destinatario_id
+    foreign key (destinatario_usuario_id) references usuario(id)
+	ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+ALTER TABLE `java0062`.`usuario` 
+ADD COLUMN `saldo` INT NOT NULL DEFAULT 0 AFTER `fecha_creacion`;
