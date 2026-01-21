@@ -148,3 +148,24 @@ CREATE TABLE transacciones(
 
 ALTER TABLE `java0062`.`usuario` 
 ADD COLUMN `saldo` INT NOT NULL DEFAULT 0 AFTER `fecha_creacion`;
+
+/* CREACION*/
+CREATE table empleados(
+    id int auto_increment primary key,
+    nombre varchar(100) not null,
+    salario decimal(10,2),
+    
+    constraint chk_salario CHECK (salario >=0 )
+);
+
+/* CONSULTA*/
+SELECT * FROM java0062.empleados;
+/*Modificacion de tabla*/
+ALTER TABLE `java0062`.`empleados` 
+CHANGE COLUMN `salario` `salario` DECIMAL(10,2) NULL DEFAULT 0 ;
+
+/* se gatilla la constraint de salario*/
+update empleados
+set salario = salario - 12
+where id = 1
+;
